@@ -1,73 +1,70 @@
-﻿namespace Diamante
+﻿namespace DesafioDiamanteAcademia
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            /*
-             * Diamantes de x Dado um número ímpar, exiba um diamante desenhado com a letra ‘x’.
-            */
-            int tamamanhoDiamante = 0;
-            do
+            Console.Write("Digite um número impar para criar o diamanteX: ");
+            //int tamanhoDiamante = Convert.ToInt32(Console.ReadLine());
+
+            if (int.TryParse(Console.ReadLine(), out int tamanhoDiamante))
             {
-                Console.Clear();
-                Console.BackgroundColor = ConsoleColor.Green;
-                Console.Title = "Diamante";
-
-                Console.WriteLine("Quero imprimir um diamante para números impar.\r\n" +
-                    "Entre com o tamanho do diamante:");
-                tamamanhoDiamante = Convert.ToInt16(Console.ReadLine());
-
-                if (DeveSerImpar(tamamanhoDiamante) is false)
+                if (tamanhoDiamante % 2 == 0)
                 {
-                    Console.WriteLine("Preciso de um número impar");
+                    Console.WriteLine("O número digitado não é um número ímpar!");
                     return;
                 }
+            }
 
-                int meio = tamamanhoDiamante / 2;
+            //int inicio = 1;
 
-                for (int i = 0; i <= meio; i++)
+            //int metade = (inicio - tamanhoDiamante) / 2;
+
+            int metade = tamanhoDiamante / 2;
+
+            PrintarDiamante(metade, tamanhoDiamante);
+
+
+        }
+
+        static void PrintarDiamante(int metade, int tamanhoDiamante)
+        {
+            Console.WriteLine();
+
+            for (int i = 0; i <= metade; i++)
+            {
+                for (int j = 0; j < tamanhoDiamante; j++)
                 {
-                    PercorrerEspaçosVertical(tamamanhoDiamante, meio, i);
-                    Console.WriteLine();
+                    if (j >= metade - i && j <= metade + i)
+                    {
+                        Console.Write("X");
+                    }
+                    else
+                    {
+                        Console.Write(" ");
+                    }
                 }
 
-                for (int i = meio - 1; i >= 0; i--)
+                Console.WriteLine();
+            }
+
+            for (int i = metade - 1; i >= 0; i--)
+            {
+                for (int j = 0; j < tamanhoDiamante; j++)
                 {
-                    PercorrerEspaçosVertical(tamamanhoDiamante, meio, i);
-                    Console.WriteLine();
+                    if (j >= metade - i && j <= metade + i)
+                    {
+                        Console.Write("X");
+                    }
+                    else
+                    {
+                        Console.Write(" ");
+                    }
                 }
-                Console.ReadKey();
-            } while (DeveSerImpar(tamamanhoDiamante));
 
-        }
-
-        private static void PercorrerEspaçosVertical(int tamamanhoDiamante, int meio, int i)
-        {
-            for (int j = 0; j < tamamanhoDiamante; j++)
-            {
-                ValidarCorpoDiamante(meio, i, j);
+                Console.WriteLine();
             }
-        }
-
-        private static void ValidarCorpoDiamante(int meio, int i, int j)
-        {
-            bool validarLadoEsquerdo = j >= meio - i;
-            bool validarLadoDireito = j <= meio + i;
-
-            if (validarLadoEsquerdo && validarLadoDireito)
-            {
-                Console.Write("X");
-            }
-            else
-            {
-                Console.Write(" ");
-            }
-        }
-
-        static bool DeveSerImpar(int numero)
-        {
-            return numero % 2 != 0;
         }
     }
 }
+
